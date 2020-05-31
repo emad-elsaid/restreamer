@@ -1,0 +1,21 @@
+daemon off;
+worker_processes auto;
+rtmp_auto_push on;
+
+events {}
+
+rtmp {
+    server {
+        listen 1935;
+
+        application <%= ENV['TOKEN'] %> {
+            live on;
+            record off;
+<%=
+  platforms = ENV['PLATFORMS'].split(',')
+  pushes = platforms.map { |platform| "push #{ENV[platform]};" }
+  pushes.join("\n")
+%>
+        }
+    }
+}
