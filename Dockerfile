@@ -6,7 +6,7 @@ ENV NGINX_RTMP_MODULE_VERSION 1.2.1
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y ca-certificates openssl libssl-dev ruby && \
+    apt-get install -y ca-certificates openssl libssl-dev ruby stunnel4&& \
     rm -rf /var/lib/apt/lists/*
 
 # Download and decompress Nginx
@@ -46,10 +46,6 @@ RUN cd /tmp/build/nginx/${NGINX_VERSION} && \
 # Forward logs to Docker
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
-
-RUN apt update && \
-  apt install -y ruby stunnel4
-
 
 # Set up config file
 COPY nginx.conf.erb /etc/nginx/nginx.conf.erb
