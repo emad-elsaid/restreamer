@@ -8,6 +8,14 @@ This docker container does the following
 1. Reads SRTMP push servers from the environment variables so no need to change nginx configuration
 1. Uses RTMP application name from environment variables so you can change it easily to some long random token
 
+## Starting from dockerhub
+
+1. Prepare a `.env` file, use `.env.sample` file as a reference
+1. run the container
+  ```
+  docker run -it --rm -p 1935:1935 --env-file .env --name restreamer emadelsaid/restreamer
+  ```
+
 ## Setup
 
 1. Copy `.env.sample` content to `.env` on your machine
@@ -27,9 +35,7 @@ This docker container does the following
 
 ```
 docker build . -t restreamer
-docker stop restreamer
-docker rm restreamer
-docker run -d -p 1935:1935 --env-file .env --name restreamer restreamer
+docker run -it --rm -p 1935:1935 --env-file .env --name restreamer restreamer
 ```
 
 ## OBS config
